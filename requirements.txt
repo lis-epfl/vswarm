@@ -1,0 +1,29 @@
+# catkin build dependencies
+
+# build dependencies for cv_bridge
+catkin_pkg>=0.4.23
+numpy>=1.19.5
+
+# build dependencies for tf2_msgs
+empy==3.3.2
+
+# build dependencies for mavlink
+future==0.18.2
+
+# runtime dependencies
+
+# runtime dependency for rospy
+rospkg>=1.2.10
+
+# runtime dependency for gmphd filter
+matplotlib>=3.3.4
+
+# runtime dependency for object_detection (with blob detector)
+opencv-python==4.2.0.32
+
+# runtime dependencies for object_detection (with drone detector)
+torch==1.4.0
+torchvision==0.5.0
+
+# runtime dependency for multi_target_tracking
+scikit-learn==0.24.1

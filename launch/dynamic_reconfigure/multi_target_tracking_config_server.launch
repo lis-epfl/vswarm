@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="vswarm" type="multi_target_tracking_config_server.py" name="multi_target_tracking_config_server" output="screen" />
+
+</launch>

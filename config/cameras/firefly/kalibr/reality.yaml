@@ -1,0 +1,69 @@
+# This configration repeats the calibration of Firefly S 19308182
+
+camera_front:
+  camera_model: pinhole
+  distortion_coeffs:
+  - -0.020160496006313807
+  - 0.006071557188899182
+  - -0.0067492162928841325
+  - 0.0015802807058136674
+  distortion_model: equidistant
+  intrinsics:
+  - 260.2658763809593
+  - 260.0440478950455
+  - 330.0828565150854
+  - 261.9032621402001
+  resolution:
+  - 720
+  - 540
+
+camera_right:
+  camera_model: pinhole
+  distortion_coeffs:
+  - -0.020160496006313807
+  - 0.006071557188899182
+  - -0.0067492162928841325
+  - 0.0015802807058136674
+  distortion_model: equidistant
+  intrinsics:
+  - 260.2658763809593
+  - 260.0440478950455
+  - 330.0828565150854
+  - 261.9032621402001
+  resolution:
+  - 720
+  - 540
+
+camera_back:
+  camera_model: pinhole
+  distortion_coeffs:
+  - -0.020160496006313807
+  - 0.006071557188899182
+  - -0.0067492162928841325
+  - 0.0015802807058136674
+  distortion_model: equidistant
+  intrinsics:
+  - 260.2658763809593
+  - 260.0440478950455
+  - 330.0828565150854
+  - 261.9032621402001
+  resolution:
+  - 720
+  - 540
+
+camera_left:
+  camera_model: pinhole
+  distortion_coeffs:
+  - -0.020160496006313807
+  - 0.006071557188899182
+  - -0.0067492162928841325
+  - 0.0015802807058136674
+  distortion_model: equidistant
+  intrinsics:
+  - 260.2658763809593
+  - 260.0440478950455
+  - 330.0828565150854
+  - 261.9032621402001
+  resolution:
+  - 720
+  - 540

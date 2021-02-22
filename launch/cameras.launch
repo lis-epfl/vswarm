@@ -1,0 +1,23 @@
+<launch>
+
+    <!-- Front -->
+    <include file="$(find vswarm)/launch/camera.launch">
+        <arg name="camera_name" value="camera_front" />
+    </include>
+
+    <!-- Right -->
+    <include file="$(find vswarm)/launch/camera.launch">
+        <arg name="camera_name" value="camera_right" />
+    </include>
+
+    <!-- Back -->
+    <include file="$(find vswarm)/launch/camera.launch">
+        <arg name="camera_name" value="camera_back" />
+    </include>
+
+    <!-- Left -->
+    <include file="$(find vswarm)/launch/camera.launch">
+        <arg name="camera_name" value="camera_left" />
+    </include>
+
+</launch>

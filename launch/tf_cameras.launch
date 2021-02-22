@@ -1,0 +1,33 @@
+<launch>
+
+    <arg name="offset" default="0.22" />
+    <arg name="deg90" default="1.57079632679" />
+
+    <!-- Front camera -->
+    <include file="$(find vswarm)/launch/tf_camera.launch">
+        <arg name="camera_name" value="camera_front" />
+        <arg name="x" value="$(arg offset)" />
+    </include>
+
+    <!-- Left camera -->
+    <include file="$(find vswarm)/launch/tf_camera.launch">
+        <arg name="camera_name" value="camera_left" />
+        <arg name="y" value="$(arg offset)" />
+        <arg name="yaw" value="$(arg deg90)" />
+    </include>
+
+    <!-- Back camera -->
+    <include file="$(find vswarm)/launch/tf_camera.launch">
+        <arg name="camera_name" value="camera_back" />
+        <arg name="x" value="$(eval -arg('offset'))" />
+        <arg name="yaw" value="$(eval 2.0 * arg('deg90'))" />
+    </include>
+
+    <!-- Right camera -->
+    <include file="$(find vswarm)/launch/tf_camera.launch">
+        <arg name="camera_name" value="camera_right" />
+        <arg name="y" value="$(eval -arg('offset'))" />
+        <arg name="yaw" value="$(eval 3.0 * arg('deg90'))" />
+    </include>
+
+</launch>

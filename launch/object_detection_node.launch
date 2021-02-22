@@ -1,0 +1,23 @@
+<launch>
+
+    <arg name="checkpoint" default="$(env DETECTION_CHECKPOINT)" />
+    <arg name="type" default="$(optenv DETECTION_TYPE yolo)" />
+    <arg name="config" default="$(find vswarm)/config/object_detection_node/yolov3_tiny/yolov3_tiny.cfg" />
+    <arg name="show_annotations" default="true" />
+    <arg name="grayscale" default="false" />
+    <arg name="verbose" default="false" />
+
+    <node pkg="vswarm" name="object_detection_node" type="object_detection_node.py" output="screen">
+
+        <rosparam param="input_images" file="$(find vswarm)/config/object_detection_node/config.yaml" />
+
+        <param name="checkpoint" value="$(arg checkpoint)" />
+        <param name="type" value="$(arg type)" />
+        <param name="config" value="$(arg config)" />
+        <param name="show_annotations" value="$(arg show_annotations)" />
+        <param name="grayscale" value="$(arg grayscale)" />
+        <param name="verbose" value="$(arg verbose)" />
+
+    </node>
+
+</launch>

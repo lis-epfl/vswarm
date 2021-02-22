@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<robot name="firefly" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:property name="mass" value="0.01" /> <!-- kg -->
+    <xacro:property name="image_width" value="720" />
+    <xacro:property name="image_height" value="540" />
+    <!-- Focal length of 262 pixels corresponds to horizontal FOV: 157.454 deg  -->
+    <!-- Using equidistant projection: r = f * theta -->
+    <xacro:property name="horizontal_fov" value="2.7480916030534353" />  <!-- 157.454 deg -->
+    <xacro:property name="namespace" value="" />
+    <xacro:property name="frame_rate" value="10" />
+    <xacro:property name="image_format" value="L8" />  <!-- R8G8B8 -->
+    <xacro:property name="min_distance" value="0.001" />
+    <xacro:property name="max_distance" value="100" />
+    <xacro:property name="enable_visual" value="true" />
+    <xacro:property name="visualize_fov" value="false" />
+    <xacro:property name="enable_collision" value="true" />
+    <xacro:property name="noise_mean" value="0.0" />
+    <xacro:property name="noise_stddev" value="0.0" />
+    <xacro:property name="camera_suffix" value="main" />
+    <xacro:property name="parent_link" value="base_link" />
+
+    <xacro:include filename="firefly_macro.xacro" />
+
+    <link name="base_link"></link>
+
+    <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="base_link_inertia" />
+    </joint>
+
+    <link name="base_link_inertia">
+      <inertial>
+        <mass value="${mass}" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      </inertial>
+    </link>
+
+    <xacro:firefly_macro
+      namespace="${namespace}"
+      parent_link="${parent_link}"
+      camera_suffix="${camera_suffix}"
+      frame_rate="${frame_rate}"
+      horizontal_fov="${horizontal_fov}"
+      image_width="${image_width}"
+      image_height="${image_height}"
+      image_format="${image_format}"
+      min_distance="${min_distance}"
+      max_distance="${max_distance}"
+      visualize_fov="${visualize_fov}"
+      noise_mean="${noise_mean}"
+      noise_stddev="${noise_stddev}"
+      enable_collision="${enable_collision}"
+      enable_visual="${enable_visual}">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:firefly_macro>
+
+</robot>

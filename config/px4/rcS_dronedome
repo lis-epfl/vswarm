@@ -1,0 +1,20 @@
+#!/bin/sh
+
+ARGS="$@"
+
+. px4-alias.sh
+
+# Make sure the ROMFS -> px4/ROMFS symbolic link exists
+/bin/sh ${HOME}/.ros/ROMFS/px4fmu_common/init.d-posix/rcS "${ARGS}"
+
+param set EKF2_AID_MASK 24  # Vision position + vision yaw fusion [bitmask]
+param set EKF2_EV_DELAY 10.0  # Delay from vision position [ms]
+param set EKF2_HGT_MODE 3  # Vision [int]
+
+param set SDLOG_MODE -1  # Disable logging
+
+param set MPC_LAND_SPEED 0.6  # Landing velocity [m/s]
+param set COM_DISARM_LAND 1.0  # Disarm after this many seconds [s]
+
+param set COM_OBL_ACT 0  # Land on offboard loss (not connected to RC)
+param set COM_OF_LOSS_T 0  # Timeout after offboard loss (until failsafe) [s]

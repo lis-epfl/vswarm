@@ -1,0 +1,109 @@
+<launch>
+
+    <!-- Vehicle argument -->
+    <arg name="x" default="0" />
+    <arg name="y" default="0" />
+    <arg name="z" default="0" />
+    <arg name="R" default="0" />
+    <arg name="P" default="0" />
+    <arg name="Y" default="0" />
+    <arg name="ID" default="0"/>
+    <arg name="n" default="0"/>
+    <arg name="id_one" default="$(eval arg('ID') + 1)" />
+    <arg name="bind_port" default="$(eval 15540 + arg('ID'))" />
+    <arg name="remote_port" default="$(eval 14580 + arg('ID'))" />
+    <arg name="fcu_url" default="udp://:$(arg bind_port)@localhost:$(arg remote_port)" />
+    <arg name="gcs_url" default="$(optenv MAVROS_GCS_URL)" />
+    <arg name="mavlink_udp_port" default="$(eval 14560 + arg('ID'))" />
+    <arg name="mavlink_tcp_port" default="$(eval 4560 + arg('ID'))" />
+    <arg name="est" default="ekf2"/>
+    <arg name="vehicle" default="iris" />
+    <arg name="daemon" default="true"/>
+    <arg unless="$(arg daemon)" name="px4_daemon_mode" value=""/>
+    <arg     if="$(arg daemon)" name="px4_daemon_mode" value="-d"/>
+
+    <!-- My arguments -->
+    <arg name="enable_cameras" default="true" />
+    <arg name="enable_gcs_link" default="false" />
+    <arg name="rcs_script" default="$(find vswarm)/config/px4/rcS" />
+    <arg name="use_sphere_visual" default="false" />
+
+    <!-- Set environment variables -->
+    <env name="PX4_ENABLE_GCS_LINK" value="$(arg enable_gcs_link)" />
+    <!-- PX4_SIM_MODEL should ALWAYS be 'iris' because of rcS compatbility -->
+    <env name="PX4_SIM_MODEL" value="iris" />
+    <env name="PX4_ESTIMATOR" value="$(arg est)" />
+
+    <!-- Parameters -->
+    <param name="tf_prefix" type="string" value="drone_$(arg id_one)" />
+
+    <!-- Robot description-->
+    <param name="robot_description"
+        command="$(find xacro)/xacro $(find vswarm)/models/$(arg vehicle)/urdf/$(arg vehicle)_base.xacro
+            rotors_description_dir:=$(find vswarm)/models/$(arg vehicle)
+            mavlink_udp_port:=$(arg mavlink_udp_port)
+            mavlink_tcp_port:=$(arg mavlink_tcp_port)
+            enable_cameras:=$(arg enable_cameras)
+            use_sphere_visual:=$(arg use_sphere_visual)
+            namespace:=drone_$(arg id_one)
+             --inorder"
+    />
+
+    <!-- PX4 -->
+    <node name="px4_$(arg id_one)" pkg="px4" type="px4" output="screen"
+        args="$(find px4)/ROMFS/px4fmu_common
+            -s $(arg rcs_script)
+            -i $(arg ID)
+            $(arg px4_daemon_mode)"
+    />
+
+    <!-- Gazebo spawn -->
+    <node name="spawn_$(arg id_one)" output="screen" pkg="gazebo_ros" type="spawn_model"
+        args="-urdf
+            -param robot_description
+            -model drone_$(arg id_one)
+            -package_to_model
+            -x $(arg x)
+            -y $(arg y)
+            -z $(arg z)
+            -R $(arg R)
+            -P $(arg P)
+            -Y $(arg Y)"
+    />
+
+    <!-- The robot_state_publisher is important for TF of the cameras! -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+    <!-- <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" /> -->
+
+    <!-- MAVROS -->
+    <node pkg="mavros" type="mavros_node" name="mavros" clear_params="true" output="screen">
+        <param name="fcu_url" value="$(arg fcu_url)" />
+        <param name="gcs_url" value="$(arg gcs_url)" />
+        <param name="target_system_id" value="$(eval 1 + arg('ID'))" />
+        <param name="target_component_id" value="1" />
+        <param name="fcu_protocol" value="v2.0" />
+
+        <!-- load blacklist, config -->
+        <rosparam command="load" file="$(find vswarm)/config/px4/px4_pluginlists.yaml" />
+        <rosparam command="load" file="$(find mavros)/launch/px4_config.yaml" />
+    </node>
+
+    <!-- TODO: enable-->
+    <!-- <include file="$(find vswarm)/launch/offboard_node.launch" /> -->
+    <!-- <include file="$(find vswarm)/launch/global_position_node.launch" /> -->
+
+    <!-- Object detection -->
+    <include file="$(find vswarm)/launch/object_detection_node.launch" />
+
+    <!-- Relative localization -->
+    <include file="$(find vswarm)/launch/relative_localization_node.launch" />
+
+    <!-- Multi-target tracking -->
+    <include file="$(find vswarm)/launch/multi_target_tracking_node.launch" />
+
+    <!-- Flocking control -->
+    <include file="$(find vswarm)/launch/flocking_node.launch">
+        <arg name="n" value="$(arg n)" />
+    </include>
+
+</launch>

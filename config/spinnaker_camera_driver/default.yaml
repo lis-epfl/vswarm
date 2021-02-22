@@ -1,0 +1,7 @@
+acquisition_frame_rate: 10.0
+image_format_x_binning: 2
+image_format_y_binning: 2
+image_format_x_reverse: false
+image_format_y_reverse: false
+line_source: ExposureActive
+auto_exposure_time_upper_limit: 30000

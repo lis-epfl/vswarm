@@ -1,0 +1,40 @@
+<launch>
+
+    <!-- Use iteration to launch n vehicles (with iteration var i) -->
+
+    <arg name="n" default="1" />  <!-- Total number of vehicles to launch -->
+    <arg name="i" default="1" />  <!-- Current vehicle to launch -->
+    <arg name="enable_cameras" default="true" />
+    <arg name="enable_gcs_link" default="false" />
+    <arg name="vehicle" default="lequad" />
+    <arg name="rcs_script" default="$(find vswarm)/config/px4/rcS" />
+    <arg name="use_sphere_visual" default="false" />
+
+    <!-- Launch current vehicle i -->
+    <group ns="drone_$(arg i)">
+        <include file="$(find vswarm)/launch/single_drone.launch">
+            <arg name="ID" value="$(eval arg('i') - 1)" />
+            <arg name="n" value="$(arg n)" />
+            <arg name="x" value="$(eval arg('i') - 1)" />
+            <arg name="enable_cameras" value="$(arg enable_cameras)" />
+            <arg name="vehicle" value="$(arg vehicle)" />
+            <arg name="enable_gcs_link" value="$(arg enable_gcs_link)" />
+            <arg name="rcs_script" value="$(arg rcs_script)" />
+            <arg name="use_sphere_visual" value="$(arg use_sphere_visual)" />
+        </include>
+    </group>
+
+    <!-- Iteratively launch more vehihlces until i == n -->
+    <group if="$(eval arg('i') != arg('n'))">
+        <include file="$(find vswarm)/launch/multi_drone.launch">
+            <arg name="n" value="$(arg n)" />
+            <arg name="i" value="$(eval arg('i') + 1)" />
+            <arg name="enable_cameras" value="$(arg enable_cameras)" />
+            <arg name="vehicle" value="$(arg vehicle)" />
+            <arg name="enable_gcs_link" value="$(arg enable_gcs_link)" />
+            <arg name="rcs_script" value="$(arg rcs_script)" />
+            <arg name="use_sphere_visual" value="$(arg use_sphere_visual)" />
+        </include>
+    </group>
+
+</launch>

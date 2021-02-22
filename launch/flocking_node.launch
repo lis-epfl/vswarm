@@ -1,0 +1,17 @@
+<launch>
+
+    <arg name="n" default="$(optenv NUM_AGENTS 1)" />
+    <arg name="detections" default="multi_target_tracking_node/detections" />
+    <arg name="pose" default="mavros/vision_pose/pose" />
+    <arg name="migration" default="/gcs/migration_node/setpoint" />
+
+    <node pkg="vswarm" name="flocking_node" type="flocking_node.py" output="screen">
+
+        <remap from="detections" to="$(arg detections)" />
+        <remap from="pose" to="$(arg pose)" />
+        <remap from="migration" to="$(arg migration)" />
+        <param name="n" value="$(arg n)" />
+
+    </node>
+
+</launch>

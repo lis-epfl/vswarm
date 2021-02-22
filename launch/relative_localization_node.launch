@@ -1,0 +1,19 @@
+<launch>
+
+    <arg name="calibration" default="$(find vswarm)/config/relative_localization_node/cameras.yaml" />
+    <arg name="detections" default="object_detection_node/detections" />
+    <arg name="object_width" default="0.5" />
+    <arg name="object_depth" default="0.5" />
+
+    <node pkg="vswarm" name="relative_localization_node" type="relative_localization_node.py" output="screen">
+
+        <rosparam ns="calibration" file="$(arg calibration)" />
+
+        <param name="object_width" value="$(arg object_width)" />
+        <param name="object_depth" value="$(arg object_depth)" />
+
+        <remap from="detections" to="$(arg detections)" />
+
+    </node>
+
+</launch>

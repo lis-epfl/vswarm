@@ -1,0 +1,4 @@
+acquisition_frame_rate_enable: false  # Frame rate halved without this setting!
+enable_trigger: 'On'
+trigger_selector: FrameStart
+trigger_source: Line3

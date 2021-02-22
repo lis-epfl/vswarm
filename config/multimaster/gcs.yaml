@@ -1,0 +1,13 @@
+# Only synchronize throttled topics
+# sync_topics: ['/drone_*']
+# sync_topics: ['/drone_*/throttle/*']
+# sync_topics: ['/drone_*/*/image_raw']
+# sync_topics: ['*/parameter_descriptions', '*/parameter_updates', '/drone_*/*/image_raw']
+# sync_topics: ['/*/mavros/vision_pose/pose', '/tf', '/tf_static']
+# sync_topics: ['/*/mavros/vision_pose/pose', '/drone_*/camera_array/camera_*/image_raw', '/tf', '/tf_static']
+
+# Config for dronedome
+# sync_topics: ['/drone_*/parameter_descriptions', '/drone_*/parameter_updates', '/drone_*/mavros/vision_pose/pose', '/drone_*/*/image_raw']
+
+# Config for outdoors
+sync_topics: ['/drone_*/parameter_descriptions', '/drone_*/parameter_updates', '/drone_*/global_position/pose']

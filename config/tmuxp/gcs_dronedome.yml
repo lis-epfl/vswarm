@@ -1,0 +1,17 @@
+session_name: gcs
+attach: false
+
+windows:
+  - zsh:
+    panes:
+      - #
+  - ros:
+    panes:
+    - roscore
+    - wait_for_ros; roslaunch vswarm dronedome_multimaster.launch
+  - qgc:
+      panes:
+        - #
+  - code:
+      panes:
+        - #

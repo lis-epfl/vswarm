@@ -1,0 +1,11 @@
+<launch>
+
+    <arg name="waypoints" default="$(find vswarm)/config/waypoints/square.yaml" />
+    <arg name="poses" default="mavros/vision_pose/pose" />
+
+    <node pkg="vswarm" name="migration_node" type="migration_node.py" output="screen">
+        <rosparam ns="waypoints" command="load" file="$(arg waypoints)" />
+        <param name="poses" value="$(arg poses)" />
+    </node>
+
+</launch>

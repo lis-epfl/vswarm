@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package>
+  <name>vswarm</name>
+  <version>0.0.1</version>
+  <description>The vswarm package</description>
+
+  <maintainer email="fabian.schilling@epfl.ch">Fabian Schilling</maintainer>
+  <license>MIT</license>
+  <author email="fabian.schilling@epfl.ch">Fabian Schilling</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>gazebo_msgs</build_depend>
+  <build_depend>mavros_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>gazebo_msgs</run_depend>
+  <run_depend>mavros_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>multimaster_fkie</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rostest</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>vision_msgs</run_depend>
+  <run_depend>vrpn_client_ros</run_depend>
+
+</package>

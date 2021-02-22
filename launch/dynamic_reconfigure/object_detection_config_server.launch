@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="vswarm" type="object_detection_config_server.py" name="object_detection_config_server" output="screen" />
+
+</launch>

@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="vswarm" name="flocking_node_config_server" type="flocking_node_config_server.py" output="screen" />
+</launch>

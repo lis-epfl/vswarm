@@ -1,0 +1,15 @@
+<launch>
+
+    <arg name="origin_latitude" default="$(env PX4_HOME_LAT)" />
+    <arg name="origin_longitude" default="$(env PX4_HOME_LON)" />
+    <arg name="origin_altitude" default="$(env PX4_HOME_ALT)" />
+    <arg name="origin_altitude_offset" default="$(optenv PX4_HOME_ALT_OFFSET 0)" />
+
+    <node pkg="vswarm" name="global_position_node" type="global_position_node.py" output="screen" >
+        <param name="origin_latitude" value="$(arg origin_latitude)" />
+        <param name="origin_longitude" value="$(arg origin_longitude)" />
+        <param name="origin_altitude" value="$(arg origin_altitude)" />
+        <param name="origin_altitude_offset" value="$(arg origin_altitude_offset)" />
+    </node>
+
+</launch>

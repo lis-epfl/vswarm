@@ -1,0 +1,26 @@
+<launch>
+
+    <arg name="server" default="windows" />
+    <arg name="broadcast_tf" default="true" />
+    <arg name="frame_id" default="world" />
+
+    <remap from="/gcs/vrpn_client_node/drone_1/pose" to="/drone_1/mavros/vision_pose/pose" />
+    <remap from="/gcs/vrpn_client_node/drone_2/pose" to="/drone_2/mavros/vision_pose/pose" />
+    <remap from="/gcs/vrpn_client_node/drone_3/pose" to="/drone_3/mavros/vision_pose/pose" />
+    <remap from="/gcs/vrpn_client_node/drone_4/pose" to="/drone_4/mavros/vision_pose/pose" />
+    <remap from="/gcs/vrpn_client_node/drone_5/pose" to="/drone_5/mavros/vision_pose/pose" />
+
+
+
+    <include file="$(find vswarm)/launch/vrpn_client.launch">
+        <arg name="server" value="$(arg server)" />
+        <arg name="broadcast_tf" value="$(arg broadcast_tf)" />
+        <arg name="frame_id" value="$(arg frame_id)" />
+    </include>
+
+    <node pkg="master_discovery_fkie" name="master_discovery" type="master_discovery" output="screen" />
+    <node pkg="master_sync_fkie" name="master_sync" type="master_sync" output="screen">
+        <rosparam file="$(find vswarm)/config/multimaster/config.yaml" />
+    </node>
+
+</launch>

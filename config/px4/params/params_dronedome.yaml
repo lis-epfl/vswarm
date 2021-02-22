@@ -1,0 +1,4 @@
+# EKF2 parameters for dronedome deployment
+EKF2_AID_MASK: 24           # Data fusion bitmask [Vision position + vision yaw]
+EKF2_HGT_MODE: 3            # Primary source of height data [Vision]
+EKF2_EV_DELAY: 50.0        # Vision position estimator delay relative to IMU [ms]

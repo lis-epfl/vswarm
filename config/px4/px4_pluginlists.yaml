@@ -1,0 +1,22 @@
+plugin_blacklist:
+# common
+# extras
+- image_pub
+- distance_sensor
+- rangefinder
+# added by me
+- 3dr_radio
+- adsb
+- debug_value
+- fake_gps
+- hil
+- landing_target
+- obstacle_distance
+- px4flow
+- trajectory
+- waypoint
+- wheel_odometry
+
+plugin_whitelist: []
+# 'sys_*'
+

@@ -1,0 +1,37 @@
+<launch>
+
+    <arg name="camera_name" default="camera_front" />
+    <arg name="camera_serial" default="0" />
+    <arg name="camera_config" default="$(find vswarm)/config/spinnaker_camera_driver/default.yaml" />
+    <arg name="calibrated" default="0" />
+
+    <arg name="master" default="false" />
+    <arg unless="$(arg master)" name="master_config" value="$(find vswarm)/config/spinnaker_camera_driver/slave.yaml" />
+    <arg     if="$(arg master)" name="master_config" value="$(find vswarm)/config/spinnaker_camera_driver/master.yaml" />
+
+    <arg name="cam_imu_sync" default="true" />
+    <arg name="cam_imu_timeshift" default="$(optenv SPINNAKER_CAM_IMU_TIMESHIFT 0.0)" />
+
+    <arg name="camera_serial_config" default="$(find vswarm)/config/cameras/firefly/spinnaker/jetson_$(optenv DRONE_ID 1)/$(arg camera_name).yaml" />
+
+    <group ns="$(arg camera_name)">
+        <node pkg="spinnaker_camera_driver" name="spinnaker_camera_node" type="camera_node" output="screen">
+            <rosparam command="load" file="$(arg camera_config)" />
+            <rosparam command="load" file="$(arg master_config)" />
+            <rosparam command="load" file="$(arg camera_serial_config)" />
+            <param name="frame_id" value="$(arg camera_name)_optical" />
+
+            <param name="cam_imu_sync" value="$(arg cam_imu_sync)" />
+            <param name="cam_imu_timeshift" value="$(arg cam_imu_timeshift)" />
+
+            <remap from="mavros/cam_imu_sync/cam_imu_stamp" to="/$(optenv ROS_NAMESPACE)/mavros/cam_imu_sync/cam_imu_stamp" />
+            <remap from="mavros/cmd/trigger_control" to="/$(optenv ROS_NAMESPACE)/mavros/cmd/trigger_control" />
+        </node>
+        <!-- <node pkg="image_transport" name="image_transport_compressed" type="republish" args="raw in:=image_raw compressed out:=image_raw" output="screen" />
+        <rosparam ns="image_raw" param="disable_pub_plugins">
+            - 'image_transport/theora'
+            - 'image_transport/compressedDepth'
+        </rosparam> -->
+    </group>
+
+</launch>

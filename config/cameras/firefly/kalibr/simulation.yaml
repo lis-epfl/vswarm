@@ -1,0 +1,27 @@
+camera_front:
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: equidistant
+  intrinsics: [262.0, 262.0, 360.0, 270.0]
+  resolution: [720, 540]
+
+camera_right:
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: equidistant
+  intrinsics: [262.0, 262.0, 360.0, 270.0]
+  resolution: [720, 540]
+
+camera_back:
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: equidistant
+  intrinsics: [262.0, 262.0, 360.0, 270.0]
+  resolution: [720, 540]
+
+camera_left:
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: equidistant
+  intrinsics: [262.0, 262.0, 360.0, 270.0]
+  resolution: [720, 540]

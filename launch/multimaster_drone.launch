@@ -1,0 +1,10 @@
+<launch>
+
+    <node pkg="master_discovery_fkie" type="master_discovery" name="master_discovery" output="screen">
+    </node>
+
+    <node pkg="master_sync_fkie" type="master_sync" name="master_sync" output="screen">
+      <rosparam file="$(find vswarm)/config/multimaster/drone.yaml" subst_value="true" />
+    </node>
+
+</launch>

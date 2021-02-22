@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://vrc_driving_terrain</uri>
+    </include>
+    <include>
+      <uri>model://collapsed_fire_station</uri>
+      <pose>50 0 0 0 0 3.14159265359</pose>
+    </include>
+    <include>
+      <uri>model://ambulance</uri>
+      <pose>30 10 0 0 0 0</pose>
+    </include>
+    <physics name='default_physics' default='0' type='ode'>
+      <gravity>0 0 -9.8066</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>10</iters>
+          <sor>1.3</sor>
+          <use_dynamic_moi_rescaling>0</use_dynamic_moi_rescaling>
+        </solver>
+        <constraints>
+          <cfm>0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
+        </constraints>
+      </ode>
+      <!--
+      Do not change `max_step_size` and `real_time_update_rate`.
+      Lockstep simulation needs 0.004 and 250, respectively.
+      Source: https://github.com/PX4/sitl_gazebo/blob/22df9475ca0d157e2db066a20f64c35906bf7f25/src/gazebo_mavlink_interface.cpp#L232
+       -->
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+      <magnetic_field>6.0e-6 2.3e-5 -4.2e-5</magnetic_field>
+    </physics>
+    <!-- VRC driving terrain model resets user camera, so set it here -->
+    <gui>
+      <camera name='user_camera'>
+        <pose frame=''>5 -5 2 0 0.275643 2.3562</pose>
+      </camera>
+    </gui>
+  </world>
+</sdf>

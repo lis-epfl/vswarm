@@ -1,0 +1,9 @@
+<launch>
+
+    <arg name="detections" default="relative_localization_node/detections" />
+
+    <node pkg="vswarm" name="multi_target_tracking_node" type="multi_target_tracking_node.py" output="screen">
+        <remap from="detections" to="$(arg detections)" />
+    </node>
+
+</launch>

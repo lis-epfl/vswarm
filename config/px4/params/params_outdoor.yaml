@@ -1,0 +1,5 @@
+# EKF2 parameters for outdoor deployment
+EKF2_AID_MASK: 1           # Data fusion bitmask [GPS]
+EKF2_HGT_MODE: 1            # Primary source of height data [GPS]
+EKF2_GPS_P_NOISE: 0.1       # Measurement noise for GPS position [m]
+EKF2_GPS_V_NOISE: 0.1       # Measurement noise for GPS horizontal velocity [m/s]

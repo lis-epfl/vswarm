@@ -1,0 +1,26 @@
+
+# To install this service issue the following commands:
+# sudo ln -s <this_file> /etc/systemd/system/lequad.service
+# sudo systemctl enable lequad.service
+# sudo systemctl daemon-reload
+# sudo systemctl start lequad.service (optional!)
+
+[Unit]
+Description=lequad
+After=network.target
+
+[Service]
+Type=forking
+User=fabian
+WorkingDirectory=/home/fabian
+ExecStart=/home/fabian/catkin_ws/src/lequad/util/lequad.zsh start
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+# Add additional timer to avoid error messages when executing roscore
+# Source: <https://github.com/clearpathrobotics/robot_upstart/issues/45>
+# Finally solved with wait_for_interface <interface> script
+# [Timer]
+# OnBootSec=1min

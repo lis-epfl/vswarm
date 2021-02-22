@@ -1,0 +1,42 @@
+session_name: vswarm
+start_directory: '~'
+
+windows:
+  - window_name: zsh
+    focus: true
+    panes:
+      - # Empty pane
+  # - window_name: nsh
+  #   panes:
+  #     - mavlink_shell
+  - window_name: ros
+    panes:
+      - wait_for_interface wlan0; roscore
+      - wait_for_ros; roslaunch vswarm multimaster.launch
+  - window_name: mavros
+    panes:
+      - wait_for_ros; roslaunch vswarm mavros.launch
+      - wait_for_node mavros; roslaunch vswarm position.launch
+  - window_name: cams
+    layout: even-vertical
+    panes:
+      - wait_for_node mavros; roslaunch vswarm tf_cameras.launch
+      - wait_for_node mavros; roslaunch vswarm cameras.launch
+  - window_name: det
+    panes:
+      - wait_for_node camera_front/spinnaker_camera_node; roslaunch vswarm detection.launch
+  - window_name: loc
+    panes:
+      - wait_for_node camera_front_static_tf; roslaunch vswarm localization.launch
+  - window_name: track
+    panes:
+      - wait_for_node multi_camera_detection_node; roslaunch vswarm tracking.launch
+  - window_name: ctrl
+    panes:
+      - wait_for_node multi_target_tracking_node; roslaunch vswarm flocking.launch
+  - window_name: status
+    panes:
+      - wait_for_node mavros; roslaunch vswarm status_node.launch
+  - window_name: bag
+    panes:
+      - cd /media/sdcard/rosbags/

@@ -1,0 +1,29 @@
+<launch>
+
+  <arg name="server" default="windows" />
+  <arg name="port" default="3883" />
+
+  <arg name="update_frequency" default="100.0" />
+  <arg name="frame_id" default="vrpn" />
+
+  <arg name="use_server_time" default="false" />
+  <arg name="broadcast_tf" default="false" />
+
+  <arg name="refresh_tracker_frequency" default="1.0" />
+
+  <node pkg="vrpn_client_ros" type="vrpn_client_node" name="vrpn_client_node" output="screen">
+
+    <param name="server" value="$(arg server)" />
+    <param name="port" value="$(arg port)" />
+
+    <param name="update_frequency" value="$(arg update_frequency)" />
+    <param name="frame_id" value="$(arg frame_id)" />
+
+    <param name="use_server_time" value="$(arg use_server_time)" />
+    <param name="broadcast_tf" value="$(arg broadcast_tf)" />
+
+    <param name="refresh_tracker_frequency" value="$(arg refresh_tracker_frequency)" />
+
+  </node>
+
+</launch>

@@ -1,0 +1,61 @@
+<launch>
+
+    <arg name="n" default="1" />  <!-- Number of drones -->
+    <arg name="origin_latitude" default="$(optenv PX4_HOME_LAT 46.533442)" />
+    <arg name="origin_longitude" default="$(optenv PX4_HOME_LON 6.524687)" />
+    <arg name="origin_altitude" default="$(optenv PX4_HOME_ALT 445)" />
+
+    <group ns="gcs">
+        <param name="n" value="$(arg n)" />
+        <param name="origin_latitude" value="$(arg origin_latitude)" />
+        <param name="origin_longitude" value="$(arg origin_longitude)" />
+        <param name="origin_altitude" value="$(arg origin_altitude)" />
+        <!-- Dynamic reconfigure -->
+        <include file="$(find vswarm)/launch/dynamic_reconfigure/object_detection_config_server.launch" />
+        <include file="$(find vswarm)/launch/dynamic_reconfigure/relative_localization_config_server.launch" />
+        <include file="$(find vswarm)/launch/dynamic_reconfigure/multi_target_tracking_config_server.launch" />
+        <include file="$(find vswarm)/launch/dynamic_reconfigure/flocking_node_config_server.launch" />
+        <include file="$(find vswarm)/launch/migration_node.launch" />
+        <!-- <include file="$(find vswarm)/launch/metric_node.launch" /> -->
+    </group>
+
+    <!-- Gazebo -->
+    <arg name="gui" default="true" />
+    <arg name="verbose" default="true" />
+    <arg name="paused" default="false" />
+    <arg name="debug" default="false" />
+    <arg name="world" default="$(find vswarm)/worlds/outdoor.world"/>
+
+    <!-- Gazebo lockstep: http://gazebosim.org/tutorials?tut=lockstep_physics_sensors&cat=sensors -->
+    <!-- Requires at least Gazebo 9.11, tested with Gazebo 9.16.0 -->
+    <arg name="lockstep" default="true" />
+    <arg     if="$(arg lockstep)" name="extra_gazebo_args" value="--lockstep" />
+    <arg unless="$(arg lockstep)" name="extra_gazebo_args" value="" />
+
+    <include file="$(find vswarm)/launch/gazebo_mocap.launch">
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="verbose" value="$(arg verbose)" />
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="paused" value="$(arg paused)" />
+        <arg name="world" value="$(arg world)" />
+        <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)" />
+    </include>
+
+    <!-- Drones -->
+    <arg name="enable_cameras" default="true" />
+    <arg name="enable_gcs_link" default="false" />
+    <arg name="use_sphere_visual" default="false" />
+    <arg name="vehicle" default="lequad" />
+    <!-- <arg name="rcs_script" default="$(find vswarm)/config/px4/rcS_dronedome" /> -->
+    <arg name="rcs_script" default="$(find vswarm)/config/px4/rcS_outdoor" />
+
+    <include file="$(find vswarm)/launch/multi_drone.launch">
+        <arg name="n" value="$(arg n)" />
+        <arg name="enable_cameras" value="$(arg enable_cameras)" />
+        <arg name="use_sphere_visual" value="$(arg use_sphere_visual)" />
+        <arg name="enable_gcs_link" value="$(arg enable_gcs_link)" />
+        <arg name="vehicle" value="$(arg vehicle)" />
+        <arg name="rcs_script" value="$(arg rcs_script)" />
+    </include>
+
+</launch>

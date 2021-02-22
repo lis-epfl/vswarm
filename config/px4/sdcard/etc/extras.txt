@@ -1,0 +1,9 @@
+# /dev/ttyS2 corresponds to TELEM2 port
+# Increase frequency of topic mavros/imu/data_raw to 250Hz
+mavlink stream -d /dev/ttyS2 -s HIGHRES_IMU -r 250
+
+# Start GPS manually (but don't fail to boot if it is unsuccessful)
+# Needed since GPS_1_CONFIG=UART6 does not start GPS automatically
+set +e
+gps start
+set -e

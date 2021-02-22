@@ -1,0 +1,21 @@
+<launch>
+
+    <arg name="gui" default="true"/>
+    <arg name="world" default="$(find vswarm)/worlds/empty_world.world"/>
+    <arg name="debug" default="false"/>
+    <arg name="verbose" default="false"/>
+    <arg name="extra_gazebo_args" default=""/>
+    <arg name="paused" default="false"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="gui" value="$(arg gui)"/>
+        <arg name="world_name" value="$(arg world)"/>
+        <arg name="debug" value="$(arg debug)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)" />
+    </include>
+
+    <include file="$(find vswarm)/launch/gazebo_mocap_node.launch" />
+
+</launch>

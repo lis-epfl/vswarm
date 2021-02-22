@@ -1,0 +1,24 @@
+session_name: vswarm
+start_directory: '~'
+
+windows:
+  - window_name: zsh
+    focus: true
+    panes:
+      - # Empty pane
+  # - window_name: nsh
+  #   panes:
+  #     - mavlink_shell
+  - window_name: ros
+    panes:
+      - wait_for_interface wlan0; roscore
+      - wait_for_ros; roslaunch vswarm multimaster.launch
+  - window_name: mavros
+    panes:
+      - wait_for_node master_sync; roslaunch vswarm mavros.launch
+  - window_name: pos
+    panes:
+      - wait_for_node mavros; roslaunch drone_swarm global_position_node.launch
+  - window_name: status
+    panes:
+      - wait_for_node mavros; roslaunch vswarm status_node.launch

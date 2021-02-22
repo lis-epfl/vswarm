@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="vswarm" name="status_node" type="status_node.py" output="screen" />
+
+</launch>

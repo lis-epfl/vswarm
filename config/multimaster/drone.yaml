@@ -1,0 +1,5 @@
+sync_topics:
+    - /$(env ROS_NAMESPACE)/*
+    - /drone_*/mavros/vision_pose/pose
+    - /drone_*/global_position/pose
+    - /gcs/*

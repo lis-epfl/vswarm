@@ -1,0 +1,5 @@
+acquisition_frame_rate_enable: true
+enable_trigger: 'Off'
+line_mode: Output
+line_selector: Line2
+trigger_source: Software  # Only master is software triggered!

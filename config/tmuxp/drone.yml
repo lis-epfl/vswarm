@@ -1,0 +1,11 @@
+# Call like: DRONE_ID=<id> tmuxp load drone
+
+session_name: drone_${DRONE_ID}
+environment:
+    DRONE_ID: ${DRONE_ID}
+    ROS_NAMESPACE: drone_${DRONE_ID}
+
+windows:
+    - zsh:
+        panes:
+            - #

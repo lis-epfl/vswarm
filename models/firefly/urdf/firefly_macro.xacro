@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="firefly_macro"
+    params="namespace parent_link camera_suffix frame_rate
+      horizontal_fov image_width image_height image_format min_distance
+      max_distance noise_mean noise_stddev enable_visual enable_collision visualize_fov *origin">
+    <link name="camera_${camera_suffix}_link">
+      <xacro:if value="${enable_collision}">
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.0248 0.027 0.027" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:if value="${enable_visual}">
+        <visual>
+          <!-- Needs to be shifted slightly otherwise camera is visible in image -->
+          <origin xyz="-0.0124 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="model://firefly/meshes/model.dae" />
+          </geometry>
+        </visual>
+      </xacro:if>
+    </link>
+    <link name="camera_${camera_suffix}_optical">
+    </link>
+    <joint name="camera_${camera_suffix}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent_link}" />
+      <child link="camera_${camera_suffix}_link" />
+    </joint>
+    <joint name="camera_${camera_suffix}_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+      <parent link="camera_${camera_suffix}_link" />
+      <child link="camera_${camera_suffix}_optical" />
+    </joint>
+    <gazebo reference="camera_${camera_suffix}_link">
+      <sensor type="wideanglecamera" name="camera_${camera_suffix}">
+        <xacro:if value="${visualize_fov}">
+          <visualize>true</visualize>
+        </xacro:if>
+        <update_rate>${frame_rate}</update_rate>
+        <camera name="head">
+          <horizontal_fov>${horizontal_fov}</horizontal_fov>
+          <image>
+            <width>${image_width}</width>
+            <height>${image_height}</height>
+            <format>${image_format}</format>
+          </image>
+          <clip>
+            <near>${min_distance}</near>
+            <far>${max_distance}</far>
+          </clip>
+          <lens>
+            <!-- Type of lens mapping [default: stereographic] -->
+            <type>custom</type>
+            <!-- The following corresponds to equidistant projection with different angle scaling -->
+            <custom_function>
+              <c1>1.0</c1>
+              <c2>2.0</c2> <!-- default for equidistant: c2 = 1 -->
+              <c3>0.0</c3>
+              <f>1.0</f>
+              <fun>id</fun>
+            </custom_function>
+            <!-- If true the image will be scaled to fit horizontal FOV, otherwise it will be shown according to projection type parameters [default: true] -->
+            <scale_to_hfov>true</scale_to_hfov>
+            <!-- Everything outside the specified angle will be hidden [default: 1.5707] -->
+            <cutoff_angle>${horizontal_fov}</cutoff_angle>
+            <!-- Resolution of the environment cube map used to draw the world [default: 256] -->
+            <env_texture_size>512</env_texture_size>
+          </lens>
+        </camera>
+        <plugin name="camera_${camera_suffix}_controller" filename="libgazebo_ros_camera.so">
+          <robotNamespace>${namespace}</robotNamespace>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>${frame_rate}</updateRate>
+          <cameraName>camera_${camera_suffix}</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>camera_${camera_suffix}_optical</frameName>
+          <hackBaseline>0.0</hackBaseline>
+        </plugin>
+      </sensor>
+    </gazebo>
+    <gazebo reference="${namespace}/camera_${camera_suffix}_link">
+      <material>Gazebo/DarkGrey</material>
+    </gazebo>
+  </xacro:macro>
+
+</robot>

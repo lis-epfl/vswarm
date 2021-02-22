@@ -1,0 +1,16 @@
+- git:
+    uri: https://github.com/ros-perception/vision_opencv/
+    local-name: vision_opencv
+    version: melodic
+- git:
+    uri: https://github.com/ros/geometry2
+    local-name: geometry2
+    version: 0.6.5
+- git:
+    uri: https://github.com/orocos/orocos_kinematics_dynamics
+    local-name: orocos_kinematics_dynamics
+    version: v1.4.0
+- git:
+    uri: https://github.com/ros-simulation/gazebo_ros_pkgs
+    local-name: gazebo_ros_pkgs
+    version: melodic-devel

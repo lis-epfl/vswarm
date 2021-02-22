@@ -1,0 +1,16 @@
+session_name: gcs
+attach: false
+
+windows:
+  - zsh:
+    panes:
+      - #
+  - ros:
+    panes:
+      - #
+  - qgc:
+    panes:
+      - #
+  - code:
+    panes:
+      - #

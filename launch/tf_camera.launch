@@ -1,0 +1,30 @@
+<launch>
+
+    <arg name="frame_id" default="$(optenv ROS_NAMESPACE drone)" />
+    <arg name="camera_name" default="camera" />
+    <arg name="child_frame_id" default="$(arg frame_id)/$(arg camera_name)" />
+    <arg name="x" default="0.0" />
+    <arg name="y" default="0.0" />
+    <arg name="z" default="0.0" />
+    <arg name="roll" default="0.0" />
+    <arg name="pitch" default="0.0" />
+    <arg name="yaw" default="0.0" />
+
+    <!-- TF from drone body frame (drone_X) to drone body frame (drone_X/base_link) -->
+    <node pkg="tf2_ros" name="$(arg camera_name)_body_static_tf"
+        type="static_transform_publisher" output="screen"
+        args="0.0 0.0 0.0 0.0 0.0 0.0 $(arg frame_id)/base_link $(arg frame_id)" />
+
+    <!-- TF from drone body frame to camera frame -->
+    <node pkg="tf2_ros" name="$(arg camera_name)_static_tf"
+        type="static_transform_publisher" output="screen"
+        args="$(arg x) $(arg y) $(arg z) $(arg yaw) $(arg pitch) $(arg roll) $(arg frame_id) $(arg child_frame_id)" />
+
+    <arg name="neg90deg" default="-1.57079632679" />
+
+    <!--TF from camera frame to optical frame -->
+    <node pkg="tf2_ros" name="$(arg camera_name)_optical_static_tf"
+        type="static_transform_publisher" output="screen"
+        args="0 0 0 $(arg neg90deg) 0 $(arg neg90deg) $(arg child_frame_id) $(arg child_frame_id)_optical" />
+
+</launch>
