@@ -27,7 +27,8 @@ The majority of the code is written in Python 3.
 
 ## Installation
 
-All installation instructions can be found in a dedicated [`installation.md`](./docs/installation.md).
+The installation instructions for our simulation environment can be found in a dedicated [`installation.md`](./docs/installation.md).
+The code can also run onboard a physical drone with a suitable companion computer such as the [NVIDIA Jetson TX2](https://developer.nvidia.com/embedded/jetson-tx2).
 
 ## Usage
 
