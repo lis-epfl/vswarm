@@ -4,9 +4,9 @@ The `vswarm` package enables decentralized vision-based control of drone swarms 
 
 This repository contains the source code accompanying our article:
 
-<!-- TODO(fabian): Add correct vol, no, pp, and IEEE Xplore link -->
+<!-- TODO(fabian): Add correct volume, number and pages -->
 
-F. Schilling, F. Schiano, and D. Floreano, "**Vision-based Drone Flocking in Outdoor Environments**," *IEEE Robotics and Automation Letters (RA-L)*, 2021. [[arXiv](https://arxiv.org/abs/2012.01245)] [[Citation](#citation)]
+F. Schilling, F. Schiano, and D. Floreano, "**Vision-based Drone Flocking in Outdoor Environments**," *IEEE Robotics and Automation Letters (RA-L)*, 2021. [[arXiv](https://arxiv.org/abs/2012.01245)] [[IEEE *Xplore*](https://ieeexplore.ieee.org/document/9363551)] [[Citation](#citation)]
 
 The package provides its main functionality in the following modules:
 
@@ -64,7 +64,7 @@ For more information about the dataset, check out the [`dataset.md`](./docs/data
 
 If you use this work in an academic context, please cite the following article:
 
-<!-- TODO(fabian): add bibtex doi, number, volume, and issn -->
+<!-- TODO(fabian): add bibtex number and volume -->
 
 ```bibtex
 @article{schilling_vswarm_2021,
@@ -72,7 +72,9 @@ If you use this work in an academic context, please cite the following article:
     author  = {Schilling, Fabian and Schiano, Fabrizio and Floreano, Dario},
     journal = {IEEE Robotics and Automation Letters},
     year    = {2021},
-    pages   = {8},
+    doi     = {10.1109/LRA.2021.3062298},
+    issn    = {2377-3766},
+    pages   = {8}
 }
 ```
 
