@@ -73,8 +73,7 @@ If you use this work in an academic context, please cite the following article:
     number  = {2},
     pages   = {2954--2961},
     doi     = {10.1109/LRA.2021.3062298},
-    issn    = {2377-3766},
-    pages   = {8}
+    issn    = {2377-3766}
 }
 ```
 
