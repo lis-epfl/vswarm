@@ -1,0 +1,11 @@
+@article{schilling_vswarm_2021,
+    title   = {Vision-based Drone Flocking in Outdoor Environments},
+    author  = {Schilling, Fabian and Schiano, Fabrizio and Floreano, Dario},
+    journal = {IEEE Robotics and Automation Letters},
+    year    = {2021},
+    volume  = {6},
+    number  = {2},
+    pages   = {2954--2961},
+    doi     = {10.1109/LRA.2021.3062298},
+    issn    = {2377-3766}
+}
